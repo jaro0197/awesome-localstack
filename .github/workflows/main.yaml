@@ -21,4 +21,4 @@ jobs:
       - name: Add permission
         run: chmod +x check-port.sh
       - name: Verify all port are active
-        run: ./check-port.sh 4001 8081 9090 3000
+        run: ./check-port.sh 4001 8081 9090 3000 8025 8161
