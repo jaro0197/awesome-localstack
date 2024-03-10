@@ -8,9 +8,6 @@ on:
 jobs:
   docker-run:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [4001, 8081, 9090, 3000]
     services:
       docker:
         image: docker:stable
