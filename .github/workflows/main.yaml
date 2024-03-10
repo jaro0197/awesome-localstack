@@ -1,0 +1,31 @@
+﻿name: Image test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [4001, 8081, 9090, 3000]
+    services:
+      docker:
+        image: docker:stable
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run docker network
+        run: docker network create --driver bridge my_network
+      - name: Run docker compose
+        run: docker-compose up -d
+      - name: Add permission
+        run: chmod +x check-port.sh
+      - name: Verify port
+        run: ./check-port.sh 4001
+      - name: Verify port
+        run: ./check-port.sh 8081
