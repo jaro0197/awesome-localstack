@@ -20,7 +20,5 @@ jobs:
         run: docker-compose up -d
       - name: Add permission
         run: chmod +x check-port.sh
-      - name: Verify BE port is active
-        run: ./check-port.sh 4001
-      - name: Verify FE port is active
-        run: ./check-port.sh 8081
+      - name: Verify all port are active
+        run: ./check-port.sh 4001 8081 9090 3000

@@ -1,6 +1,4 @@
 ﻿#!/bin/bash
-# Step 1: Wait for a specified port to be active with a 2-minute timeout
-echo "Waiting for port $1 to be active..."
 
 # Function to check if port is open
 wait_for_port() {
@@ -27,10 +25,14 @@ wait_for_port() {
  done
 }
 
-# Use the wait_for_port function with a 120-second timeout
-if ! wait_for_port $1 120; then
- exit 1
-fi
+# Iterate over all arguments passed to the script
+for port in "$@"; do
+ echo "Waiting for port $port to be active..."
+ if ! wait_for_port $port 120; then
+    echo "Port $port did not become active within 120 seconds."
+    exit 1
+ fi
+done
 
 # Step 2: Continue with the rest of the script
-echo "Port $1 is now active. Proceeding with the rest of the script..."
+echo "All specified ports are now active. Proceeding with the rest of the script..."
